@@ -19,19 +19,12 @@ import axios from 'axios'
 import addToFavorite from '../redux/actions/addFavorite'
 
 class FlighsPage extends React.Component {
-    componentDidMount() {
-        ( async () => {
-            const {data} = await axios.get('https://6116b4cd095013001796b0a1.mockapi.io/favorites')
-            this.props.getFavoritesFlighs(data)
-        })()
-    }
-
     render() {
         return (
             <div className={Flighstyle.wrapper}>
                 <div className={Flighstyle.logOut}>
                     <NavLink to='/'>
-                        <a>Выйти </a>
+                        <span>Выйти </span>
                         <img src={logOut} alt='log out'/>
                     </NavLink>
                 </div>
@@ -56,13 +49,11 @@ class FlighsPage extends React.Component {
                         <img src={city4} alt='#' />
                     </div>
     
-                    <p> Добавлено в избранное: {this.props.favorites.length} рейсов </p>
+                    <p> Добавлено в избранное: 0 рейсов </p>
                     <div className={Flighstyle.flighsBlock}>
                        {
-                           this.props.items.map((items, i) => <Flighs key={i} {...items} favorites={this.props.favorites}
-
-                           addToFavorite={this.props.addToFavorite}
-                           getFavorites={this.props.getFavoritesFlighs} /> )
+                         this.props.items.map((items, i) => <Flighs key={i} {...items} favorites={this.props.favorites}
+                           addToFavorite={this.props.addToFavorite} /> )
                        }
                     </div>
                 </div>
@@ -81,7 +72,6 @@ const mapStateToProps = (state) => {
 
 const maDispatchToProps = (dispatch) => {
     return {
-        getFavoritesFlighs: (items) => dispatch(FavoriteFlighsCreator(items)),
         addToFavorite: (item) => dispatch(addToFavorite(item))
     }
 }

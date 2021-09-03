@@ -1,24 +1,14 @@
 import appStyle from './App.module.scss'
 
 import {NavLink, Route} from 'react-router-dom'
-import {BrowserRouter as Router, Switch, Link } from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import  FlighsPage  from './pages/FlighsPage';
 
-import axios from 'axios'
 import {connect} from 'react-redux'
 import React from 'react';
 
-import FlighsCreator from './redux/actions/FlighsCreator';
-
 class App extends React.Component {
 
-  componentDidMount() {
-    ( async () => {
-      const {data} = await axios.get('https://6116b4cd095013001796b0a1.mockapi.io/flighs')
-      this.props.setFlighs(data)
-    })()
-  }
-  
   render() {
     return (
       <Router>
@@ -58,10 +48,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setFlighs: (items) => dispatch(FlighsCreator(items))
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setFlighs: (items) => dispatch(FlighsCreator(items))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
