@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
+
 import Flighstyle from './Flighs.module.scss'
 import time from '../img/await.svg'
 import plane from '../img/plane.svg'
@@ -32,8 +33,8 @@ export const Flighs = ({favorite, id, flight, airline, favorites, addToFavorite,
     //     // }
     // }
 
-    const dispatch = useDispatch()
-
+    
+        const dispatch = useDispatch()
         return <div className='mb-20' >
             <div className='d-flex justify-around align-center'>
                 <div className={Flighstyle.plane}>

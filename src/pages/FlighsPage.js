@@ -13,9 +13,6 @@ import logOut from '../img/log-out.svg'
 import { Flighs } from './Flighs'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import FavoriteFlighsCreator from '../redux/actions/FavoriteFlighs'
-
-import axios from 'axios'
 import addToFavorite from '../redux/actions/addFavorite'
 
 class FlighsPage extends React.Component {
