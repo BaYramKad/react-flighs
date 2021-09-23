@@ -2,21 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.module.scss';
-import 'macro-css'
-import { BrowserRouter } from 'react-router-dom';
+import 'macro-css';
 
-import App from './App';
 import { Provider } from 'react-redux';
+import {Router} from 'react-router'
+import {Switch} from 'react-router-dom'
+import App from './App';
 import store from './redux/store'
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory()
 
 // ВОЗМОЖНО НУЖЕН CONSUMER
   ReactDOM.render(
-    <React.StrictMode>
-      <BrowserRouter>
         <Provider store={store}>
-            <App/>
-        </Provider>
-      </BrowserRouter>
-    </React.StrictMode>,
+          <Router history={history} >
+              <App/>
+          </Router>
+        </Provider>,
     document.getElementById('root')
   );

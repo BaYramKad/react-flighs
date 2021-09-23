@@ -1,8 +1,9 @@
 
 import axios from 'axios'
-import {call, fork, spawn, put, take, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, call, fork, spawn, put, delay, take, takeEvery, takeLatest} from 'redux-saga/effects'
 
 
+import {getBasisData} from './getBasisData/basisData'
 // async function addFavoriteFlighs(flighs, favorites) {
 //     // const obj = flighs.map(item => {
 //     //     return {
@@ -28,22 +29,29 @@ import {call, fork, spawn, put, take, takeEvery, takeLatest} from 'redux-saga/ef
 //     //     }
 // }
 
-const getFlighs = async (pattern) => {
-    const {data} = await axios(`https://612277c4d446280017054885.mockapi.io/${pattern}`)
-    return data
-}
+// const getFlighs = async (pattern) => {
+//     const {data} = await axios(`https://612277c4d446280017054885.mockapi.io/${pattern}`)
+//     return data
+// }
 
-function* workerSaga() {
-    const dataFlighs = yield call(getFlighs, 'flighs')
-    yield put({ type: 'GET_FLIGHS', flighs: dataFlighs })
-}
-
-function* watcherSaga() {
-    yield workerSaga()
-}
 
 export function* generator() {
-    yield watcherSaga()
+    const sagas = [getBasisData]
+
+    const retrySagas = yield sagas.map(saga => {
+        return spawn(function* () {
+            while(true) {
+                try {
+                    yield call(saga)
+                    break
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        })
+    })
+
+    yield all(retrySagas)
 }
 
 // watcher worker effects
