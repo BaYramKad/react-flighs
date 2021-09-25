@@ -4,7 +4,7 @@ import FavoritesReduser from './FavoritesReduser'
 import FlighsReduser from './FlighsReduser'
 
 const rootRedusers = combineReducers({
-    flighs: FlighsReduser, 
+    flightItems: FlighsReduser, 
     favoritesFlighs: FavoritesReduser
 })
 

@@ -8,7 +8,7 @@ const flighsReduser = (state = initialState, action) => {
         case 'GET_FLIGHS':
             return {
              ...state,
-             items: action.flighs
+             items: action.flightItems
             }
         default :
             return state

@@ -4,21 +4,23 @@ import ReactDOM from 'react-dom';
 import './index.module.scss';
 import 'macro-css';
 
-import { Provider } from 'react-redux';
-import {Router} from 'react-router'
-import {Switch} from 'react-router-dom'
-import App from './App';
 import store from './redux/store'
+import { Provider } from 'react-redux';
+
+import App from './App';
+
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory()
-
-// ВОЗМОЖНО НУЖЕН CONSUMER
   ReactDOM.render(
+    <BrowserRouter>
         <Provider store={store}>
           <Router history={history} >
-              <App/>
+             <App/>
           </Router>
-        </Provider>,
+        </Provider>
+    </BrowserRouter>,
     document.getElementById('root')
   );

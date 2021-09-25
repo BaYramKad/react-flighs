@@ -11,9 +11,9 @@ import arrow from '../img/away.svg'
 
 import axios from 'axios'
 
-export const Flighs = ({favorite, id, flight, airline, favorites, addToFavorite, getFavorites}) => {
-
-    const obj = {favorite, id, flight, airline, parentId: id}
+export const Flighs = ({isFavorite, id, flight, airline, favorites}) => {
+    let obj = {isFavorite, id, flight, airline, parentId: id}
+    
     // let isFavorite = favorites.some((item) => item.parentId === obj.id)
 
     // const addToFavorites = async () => {
@@ -33,7 +33,6 @@ export const Flighs = ({favorite, id, flight, airline, favorites, addToFavorite,
     //     // }
     // }
 
-    
         const dispatch = useDispatch()
         return <div className='mb-20' >
             <div className='d-flex justify-around align-center'>
@@ -55,7 +54,7 @@ export const Flighs = ({favorite, id, flight, airline, favorites, addToFavorite,
                 </div>
 
                 <div className={Flighstyle.favorite}>
-                    <img onClick={ () => dispatch({type:'ADD_FAVORITE'})} src={"isFavorite" ? truefavorite : noFavorite} alt='#' />
+                    <img onClick={ () => dispatch({type:'ADD_FAVORITE', objFavorite: obj, favoritesItems: favorites})} src={"isFavorite" ? truefavorite : noFavorite} alt='#' />
                     <div>
                         <strong><span>Price:</span>{flight.price} р</strong>
                     </div>

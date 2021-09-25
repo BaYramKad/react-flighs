@@ -1,9 +1,9 @@
 
 import axios from 'axios'
-import {all, call, fork, spawn, put, delay, take, takeEvery, takeLatest} from 'redux-saga/effects'
+import {select, join, all, call, fork, spawn, put, delay, take, takeEvery, takeLatest} from 'redux-saga/effects'
+import { getBasisData, getFavorites } from './getBasisData/basisData'
 
-
-import {getBasisData} from './getBasisData/basisData'
+import store from '../../redux/store'
 // async function addFavoriteFlighs(flighs, favorites) {
 //     // const obj = flighs.map(item => {
 //     //     return {
@@ -33,10 +33,43 @@ import {getBasisData} from './getBasisData/basisData'
 //     const {data} = await axios(`https://612277c4d446280017054885.mockapi.io/${pattern}`)
 //     return data
 // }
+const addEd = (obj) => axios.post('https://6116b4cd095013001796b0a1.mockapi.io/favorites', obj) 
 
+function* apiGet(obj) {
+    console.log('apiGet')
+    const {data} = yield call(addEd, obj)
+    yield put({type: 'ADD_FAVORITE', favoriteObj: data})
+}
+
+function* clickAdd(arg) {
+
+    console.log('2131231232131')
+    // const items = store.getState()
+
+    // let filterFav = arg.favoritesItems.find(item => item.parentId === .id)
+    
+
+    while(true) {
+        yield call(apiGet, arg.objFavorite)
+        break
+    }
+    // if (filterFav) {
+    //             axios.delete(`https://6116b4cd095013001796b0a1.mockapi.io/favorites/${filterFav.id}`)
+    //             return 
+    //     }  else  {
+    //         const {data} = axios.post('https://6116b4cd095013001796b0a1.mockapi.io/favorites', arg.objFavorite)
+    //         yield put({type: 'ADD_FAVORITE', favoriteObj: data})
+    //         return
+    //     }
+    // yield call(getFavorites)
+}
+
+function* addFavorite() {
+    yield takeEvery('ADD_FAVORITE', clickAdd, ...arguments)
+}
 
 export function* generator() {
-    const sagas = [getBasisData]
+    const sagas = [getBasisData, addFavorite]
 
     const retrySagas = yield sagas.map(saga => {
         return spawn(function* () {

@@ -1,6 +1,6 @@
 
 let initialState = {
-    fItems: []
+    favoriteItems: []
 }
 
 const FavoritesReduser = (state = initialState, action) => {
@@ -8,12 +8,12 @@ const FavoritesReduser = (state = initialState, action) => {
         case 'GET_FAVORITES_FLIGHS':
             return {
              ...state,
-             fItems:  action.favorites
+             favoriteItems: action.favorites
             }
         case 'ADD_FAVORITE':
             return {
                 ...state, 
-                fItems: [ ...state.fItems, action.favorite ]
+                favoriteItems: [ ...state.favoriteItems, action.favoriteObj ]
               }
         default :
             return state

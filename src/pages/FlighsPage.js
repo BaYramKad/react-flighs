@@ -49,8 +49,7 @@ class FlighsPage extends React.Component {
                     <p> Добавлено в избранное: 0 рейсов </p>
                     <div className={Flighstyle.flighsBlock}>
                        {
-                         this.props.items.map((items, i) => <Flighs key={i} {...items} favorites={this.props.favorites}
-                           addToFavorite={this.props.addToFavorite} /> )
+                         this.props.items.map((items, i) => <Flighs key={i} {...items} favorites={this.props.favorites} /> )
                        }
                     </div>
                 </div>
@@ -63,7 +62,7 @@ class FlighsPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        favorites: state.favoritesFlighs.fItems
+        favorites: state.favoritesFlighs.favoriteItems
     }
 }
 
