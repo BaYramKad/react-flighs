@@ -7,20 +7,17 @@ const deleteFavoritePost = async (id) => {
 }
 
 const getFavoritePost = async (obj) => {
-    let {data} = await axios.post('https://6116b4cd095013001796b0a1.mockapi.io/favorites', obj)
-    return data
+    await axios.post('https://6116b4cd095013001796b0a1.mockapi.io/favorites', obj)
 }
 
 function* postFavorite(args) {
     let favorites = yield select(state => state.favoritesFlighs.favoriteItems)
     let findObj = favorites.find(obj => obj.parentId === args.favoriteObj.id)
 
-    if (findObj) {
-        yield call(deleteFavoritePost, findObj.id)
-    } else {
-        let data = yield call(getFavoritePost, args.favoriteObj)
-        put({type: FAVORITE, favoriteObj: data})
-    }
+    findObj ? 
+        yield call(deleteFavoritePost, findObj.id) : 
+        yield call(getFavoritePost, { ...args.favoriteObj, isFavorite: !args.favoriteObj.isFavorite } )
+ 
     yield all([
         fork(getFavorites)
     ])
@@ -32,7 +29,7 @@ export function* getFavorites() {
     return data
 }
 
-export function* getAvia() {
+export function* getFlightsData() {
     const {data} = yield call(axios, 'https://6116b4cd095013001796b0a1.mockapi.io/flighs')
     yield put({ type: 'GET_FLIGHS', flightItems: data})
     return data
@@ -40,7 +37,7 @@ export function* getAvia() {
 
 export function* getBasisData() {
     yield all([
-        fork(getAvia), 
+        fork(getFlightsData), 
         fork(getFavorites)
     ])
     

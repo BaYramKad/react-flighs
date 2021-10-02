@@ -46,10 +46,14 @@ class FlighsPage extends React.Component {
                         <img src={city4} alt='#' />
                     </div>
     
-                    <p> Добавлено в избранное: {this.props.favorites.length} рейсов </p>
+                    <p> Добавлено в избранное: <b>{this.props.favorites.length}</b>  рейсов </p>
                     <div className={Flighstyle.flighsBlock}>
                        {
-                         this.props.items.map((items, i) => <Flighs key={i} {...items} favorites={this.props.favorites} addToFavorite={ this.props.addToFavorite}/> )
+                         this.props.items.map((items, i) => <Flighs 
+                         key={i} {...items}
+                         favorite={ this.props.favorites.some(obj => obj.parentId === items.id)}
+                         favorites={this.props.favorites}
+                         addToFavorite={ this.props.addToFavorite}/> )
                        }
                     </div>
                 </div>
