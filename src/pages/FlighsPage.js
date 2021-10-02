@@ -46,10 +46,10 @@ class FlighsPage extends React.Component {
                         <img src={city4} alt='#' />
                     </div>
     
-                    <p> Добавлено в избранное: 0 рейсов </p>
+                    <p> Добавлено в избранное: {this.props.favorites.length} рейсов </p>
                     <div className={Flighstyle.flighsBlock}>
                        {
-                         this.props.items.map((items, i) => <Flighs key={i} {...items} favorites={this.props.favorites} /> )
+                         this.props.items.map((items, i) => <Flighs key={i} {...items} favorites={this.props.favorites} addToFavorite={ this.props.addToFavorite}/> )
                        }
                     </div>
                 </div>
@@ -57,7 +57,6 @@ class FlighsPage extends React.Component {
             </div>
         )
     }
-        
 }
 
 const mapStateToProps = (state) => {
@@ -66,10 +65,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-const maDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         addToFavorite: (item) => dispatch(addToFavorite(item))
     }
 }
 
-export default connect(mapStateToProps, maDispatchToProps)(FlighsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(FlighsPage)

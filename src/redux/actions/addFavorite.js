@@ -1,4 +1,5 @@
+import { FAVORITE } from "./types"
 
-const addToFavorite = (item) => ({type: 'ADD_FAVORITE', favoriteObj: item})
+const addToFavorite = (item) => ({type: FAVORITE, favoriteObj: item})
 
 export default addToFavorite

@@ -1,20 +1,18 @@
+import { GET_FAVORITES_FLIGHS } from "../actions/types"
 
 let initialState = {
     favoriteItems: []
 }
 
+
 const FavoritesReduser = (state = initialState, action) => {
+    console.log(state);
     switch(action.type){
-        case 'GET_FAVORITES_FLIGHS':
+        case GET_FAVORITES_FLIGHS:
             return {
              ...state,
              favoriteItems: action.favorites
             }
-        case 'ADD_FAVORITE':
-            return {
-                ...state, 
-                favoriteItems: [ ...state.favoriteItems, action.favoriteObj ]
-              }
         default :
             return state
     }

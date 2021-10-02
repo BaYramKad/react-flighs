@@ -1,6 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-
 
 import Flighstyle from './Flighs.module.scss'
 import time from '../img/await.svg'
@@ -9,31 +7,8 @@ import noFavorite from '../img/no-favorite.svg'
 import truefavorite from '../img/favorite.svg'
 import arrow from '../img/away.svg'
 
-import axios from 'axios'
-
-export const Flighs = ({isFavorite, id, flight, airline, favorites}) => {
+export const Flighs = ({isFavorite, id, flight, airline, favorites, addToFavorite}) => {
     let obj = {isFavorite, id, flight, airline, parentId: id}
-    
-    // let isFavorite = favorites.some((item) => item.parentId === obj.id)
-
-    // const addToFavorites = async () => {
-    //     addToFavorite()
-    //     // let filterFav = favorites.find((item) => item.parentId === obj.id)
-    //     // try {
-    //     //     if (filterFav) {
-    //     //         await axios.delete(`https://6116b4cd095013001796b0a1.mockapi.io/favorites/${filterFav.id}`)
-    //     //     } else  {
-    //     //         const {data} = await axios.post('https://6116b4cd095013001796b0a1.mockapi.io/favorites', obj)
-    //     //         addToFavorite(data)
-    //     //     }
-    //     //     const {data} = await axios.get('https://6116b4cd095013001796b0a1.mockapi.io/favorites')
-    //     //     getFavorites(data)
-    //     // } catch (error) {
-    //     //     alert(error)
-    //     // }
-    // }
-
-        const dispatch = useDispatch()
         return <div className='mb-20' >
             <div className='d-flex justify-around align-center'>
                 <div className={Flighstyle.plane}>
@@ -52,9 +27,8 @@ export const Flighs = ({isFavorite, id, flight, airline, favorites}) => {
                     </div>
                     <span className={Flighstyle.info}>{airline.name}</span>
                 </div>
-
                 <div className={Flighstyle.favorite}>
-                    <img onClick={ () => dispatch({type:'ADD_FAVORITE', objFavorite: obj, favoritesItems: favorites})} src={"isFavorite" ? truefavorite : noFavorite} alt='#' />
+                    <img onClick={() => addToFavorite(obj)} src={ isFavorite ? truefavorite : noFavorite} alt='#' />
                     <div>
                         <strong><span>Price:</span>{flight.price} р</strong>
                     </div>

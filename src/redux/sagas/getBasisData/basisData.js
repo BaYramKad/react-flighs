@@ -1,10 +1,29 @@
-import {all, call, fork, put, delay} from 'redux-saga/effects'
+import {all, call, fork, put, delay, takeEvery, select} from 'redux-saga/effects'
 import axios from 'axios'
+import { FAVORITE } from '../../actions/types'
 
-function* auth() {
-    yield delay(2000)
-    console.log('auth status ok');
-    return true
+const deleteFavoritePost = async (id) => {
+    await axios.delete(`https://6116b4cd095013001796b0a1.mockapi.io/favorites/${id}`)
+}
+
+const getFavoritePost = async (obj) => {
+    let {data} = await axios.post('https://6116b4cd095013001796b0a1.mockapi.io/favorites', obj)
+    return data
+}
+
+function* postFavorite(args) {
+    let favorites = yield select(state => state.favoritesFlighs.favoriteItems)
+    let findObj = favorites.find(obj => obj.parentId === args.favoriteObj.id)
+
+    if (findObj) {
+        yield call(deleteFavoritePost, findObj.id)
+    } else {
+        let data = yield call(getFavoritePost, args.favoriteObj)
+        put({type: FAVORITE, favoriteObj: data})
+    }
+    yield all([
+        fork(getFavorites)
+    ])
 }
 
 export function* getFavorites() {
@@ -21,8 +40,9 @@ export function* getAvia() {
 
 export function* getBasisData() {
     yield all([
-        fork(auth),
         fork(getAvia), 
         fork(getFavorites)
     ])
+    
+    yield takeEvery(FAVORITE, postFavorite, ...arguments )
 }
