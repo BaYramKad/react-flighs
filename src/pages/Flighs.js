@@ -9,7 +9,8 @@ import arrow from '../img/away.svg'
 
 export const Flighs = ({isFavorite, id, flight, airline, favorite, addToFavorite}) => {
     let obj = {isFavorite, id, flight, airline, parentId: id}
-        return <div className='mb-20'>
+        return <div className='m-20'>
+            <hr className={Flighstyle.hr}/>
             <div className='d-flex justify-around align-center'>
                 <div className={Flighstyle.plane}>
                     <img src={plane} alt='plane'/>

@@ -1,4 +1,4 @@
-import {all, call, fork, put, delay, takeEvery, select} from 'redux-saga/effects'
+import {all, call, fork, put, takeEvery, select} from 'redux-saga/effects'
 import axios from 'axios'
 import { FAVORITE } from '../../actions/types'
 

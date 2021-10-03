@@ -56,7 +56,18 @@
 .flighsBlock {
     overflow: auto;
     height: 350px;
+}
 
+.flighsBlock::-webkit-scrollbar {
+    border-radius: 20px 0px 0px 20px;
+    width: 5px;
+    background-color: rgba(180, 180, 180, 0.308);
+}
+
+.flighsBlock::-webkit-scrollbar-thumb {
+    border-radius: 20px 0px 0px 20px;
+    width: 5px;
+    background-color: rgba(0, 0, 0, 0.473);
 }
 
 .date {
