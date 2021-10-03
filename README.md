@@ -1,7 +1,7 @@
 Stack:
 ReactJS + Redux
 Redux-saga
-React Router
+React-router-dom
 Axios
 SCSS
 css.modules
